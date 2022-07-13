@@ -12,7 +12,17 @@ function App() {
 
   const onTodoRemove = (id: string) => {
     setTodos(todos.filter(x => x?.id !== id))
-  }
+  };
+
+  const onTodoEdit = (todo: ITodo) => {
+    for (let i = 0; i < todos.length; i++) {
+      if (todos[i].id === todo.id) {
+        todos[i] = todo;
+      }
+    }
+
+    setTodos(todos);
+  };
 
   return (
     <div className={styles.container}>
@@ -29,7 +39,9 @@ function App() {
             {
               todos?.map((todo, index) => {
 
-                return <Todo key={index} id={todo.id} content={todo.content} createdAt={todo.createdAt} isEdited={todo.isEdited} onTodoRemove={onTodoRemove} />
+                return <Todo key={index} id={todo.id} content={todo.content} createdAt={todo.createdAt} isEdited={todo.isEdited} onTodoEdit={
+                  onTodoEdit
+                } onTodoRemove={onTodoRemove} />
               })
             }
           </div>

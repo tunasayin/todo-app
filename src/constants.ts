@@ -4,6 +4,7 @@ export interface Todo {
     createdAt: Date;
     isEdited: boolean;
     onTodoRemove?: (id: string) => void;
+    onTodoEdit?: (todo: Todo) => void;
 }
 
 export interface InputOptions {
