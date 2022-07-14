@@ -1,17 +1,17 @@
-import styles from './styles/App.module.scss';
+import styles from "./styles/App.module.scss";
 
-import { Todo as ITodo } from './constants';
+import { Todo as ITodo } from "./constants";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import Input from './components/Input';
-import Todo from './components/Todo';
+import Input from "./components/Input";
+import Todo from "./components/Todo";
 
 function App() {
   const [todos, setTodos] = useState<ITodo[]>([]);
 
   const onTodoRemove = (id: string) => {
-    setTodos(todos.filter(x => x?.id !== id))
+    setTodos(todos.filter((x) => x?.id !== id));
   };
 
   const onTodoEdit = (todo: ITodo) => {
@@ -19,6 +19,16 @@ function App() {
       if (todos[i].id === todo.id) {
         todos[i] = todo;
       }
+    }
+
+    setTodos(todos);
+  };
+
+  const onEditEnter = (id: string) => {
+    for (let i = 0; i < todos.length; i++) {
+      todos[i].content = "SJ";
+      if (todos[i].id !== id) todos[i].inEditMode = false;
+      else todos[i].inEditMode = true;
     }
 
     setTodos(todos);
@@ -32,18 +42,27 @@ function App() {
         </div>
 
         <div className={styles.body}>
-          <Input onTodoAdd={(todo) => {
-            setTodos([...todos, todo]);
-          }} />
+          <Input
+            onTodoAdd={(todo) => {
+              setTodos([...todos, todo]);
+            }}
+          />
           <div className={styles.todos}>
-            {
-              todos?.map((todo, index) => {
-
-                return <Todo key={index} id={todo.id} content={todo.content} createdAt={todo.createdAt} isEdited={todo.isEdited} onTodoEdit={
-                  onTodoEdit
-                } onTodoRemove={onTodoRemove} />
-              })
-            }
+            {todos?.map((todo, index) => {
+              return (
+                <Todo
+                  key={index}
+                  id={todo.id}
+                  content={todo.content}
+                  createdAt={todo.createdAt}
+                  inEditMode={todo.inEditMode}
+                  isEdited={todo.isEdited}
+                  onTodoEdit={onTodoEdit}
+                  onTodoRemove={onTodoRemove}
+                  onEditEnter={onEditEnter}
+                />
+              );
+            })}
           </div>
         </div>
       </div>

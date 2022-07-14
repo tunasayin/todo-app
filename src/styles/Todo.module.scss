@@ -43,6 +43,20 @@
     }
 }
 
+@keyframes editmodeBlink {
+    0% {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: #335aa2;
+    }
+
+    100% {
+        border-color: transparent;
+    }
+}
+
 .content {
     width: calc(100% - 90px);
     height: 100%;
@@ -61,10 +75,13 @@
         height: 100%;
         outline: none;
         color: #c1c1c1;
+        padding-left: 5px;
     }
 
-    .inEditMode {
-        border: 1px solid black;
+    .editMode {
+        border: 3px solid transparent;
+        border-radius: 5px;
+        animation: editmodeBlink 2s infinite;
     }
 }
 
