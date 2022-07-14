@@ -24,12 +24,13 @@ function App() {
     setTodos(todos);
   };
 
-  const onEditEnter = (id: string) => {
+  const onEditEnter = async (id: string) => {
     for (let i = 0; i < todos.length; i++) {
-      todos[i].content = "SJ";
       if (todos[i].id !== id) todos[i].inEditMode = false;
       else todos[i].inEditMode = true;
     }
+
+    await setTodos([]);
 
     setTodos(todos);
   };

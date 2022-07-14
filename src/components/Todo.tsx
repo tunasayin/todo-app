@@ -10,6 +10,9 @@ import { useEffect, useState } from "react";
 const Todo = (todo: ITodo) => {
   const [inEditMode, setEditMode] = useState<boolean>(false);
   const [val, setVal] = useState<string>(todo.content || "");
+  const tabIndex = parseInt(
+    new Date().getMinutes().toString() + new Date().getMilliseconds().toString()
+  );
 
   const onChange = (e: any) => {
     if (inEditMode) {
@@ -32,7 +35,6 @@ const Todo = (todo: ITodo) => {
   };
 
   useEffect(() => {
-    console.log("in edit mode", todo.inEditMode);
     setEditMode(todo.inEditMode);
   }, [todo]);
 
@@ -41,12 +43,17 @@ const Todo = (todo: ITodo) => {
       !inEditMode &&
       todo?.onTodoEdit &&
       typeof todo?.onTodoEdit === "function"
-    )
+    ) {
       todo.onTodoEdit({
         ...todo,
         content: val,
         isEdited: true,
       });
+    } else {
+      (
+        document.querySelector(`input[tabindex='${tabIndex}']`) as HTMLElement
+      )?.focus();
+    }
 
     //eslint-disable-next-line
   }, [inEditMode]);
@@ -70,10 +77,7 @@ const Todo = (todo: ITodo) => {
       </div>
       <div className={styles.content}>
         <input
-          tabIndex={parseInt(
-            new Date().getMinutes().toString() +
-              new Date().getMilliseconds().toString()
-          )}
+          tabIndex={tabIndex}
           onBlur={onBlur}
           className={`${inEditMode ? styles.editMode : ""}`}
           disabled={inEditMode ? false : true}
