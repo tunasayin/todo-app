@@ -28,7 +28,7 @@ Install dependencies
 yarn install
 ```
 
-Build client
+Start development server
 
 ```
 yarn start
