@@ -25,12 +25,12 @@ const Todo = (todo: ITodo) => {
   };
 
   const toggleEditMode = () => {
-    if (inEditMode) setEditMode(false);
-    else {
+    if (inEditMode) {
+      setEditMode(false);
+      if (todo.onTodoEdit) todo.onTodoEdit({ ...todo, inEditMode: false });
+    } else {
       setEditMode(true);
-
-      if (todo?.onEditEnter && typeof todo?.onEditEnter === "function")
-        todo.onEditEnter(todo.id);
+      if (todo.onTodoEdit) todo.onTodoEdit({ ...todo, inEditMode: true });
     }
   };
 

@@ -24,17 +24,6 @@ function App() {
     setTodos(todos);
   };
 
-  const onEditEnter = async (id: string) => {
-    for (let i = 0; i < todos.length; i++) {
-      if (todos[i].id !== id) todos[i].inEditMode = false;
-      else todos[i].inEditMode = true;
-    }
-
-    await setTodos([]);
-
-    setTodos(todos);
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -60,7 +49,6 @@ function App() {
                   isEdited={todo.isEdited}
                   onTodoEdit={onTodoEdit}
                   onTodoRemove={onTodoRemove}
-                  onEditEnter={onEditEnter}
                 />
               );
             })}
