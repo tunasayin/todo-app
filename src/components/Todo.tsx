@@ -61,18 +61,18 @@ const Todo = (todo: ITodo) => {
   return (
     <div className={styles.container}>
       <div className={styles.checkbox}>
-        <div className={styles.checkboxInner}>
-          <IoMdCheckmark
-            onClick={() => {
-              if (
-                todo?.onTodoRemove &&
-                typeof todo?.onTodoRemove === "function"
-              ) {
-                todo.onTodoRemove(todo.id);
-              }
-            }}
-            className={styles.checkboxIcon}
-          />
+        <div
+          onClick={() => {
+            if (
+              todo?.onTodoRemove &&
+              typeof todo?.onTodoRemove === "function"
+            ) {
+              todo.onTodoRemove(todo.id);
+            }
+          }}
+          className={styles.checkboxInner}
+        >
+          <IoMdCheckmark className={styles.checkboxIcon} />
         </div>
       </div>
       <div className={styles.content}>

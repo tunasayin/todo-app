@@ -10,7 +10,9 @@ import Todo from "./components/Todo";
 function App() {
   const [todos, setTodos] = useState<ITodo[]>([]);
 
-  const onTodoRemove = (id: string) => {
+  const onTodoRemove = async (id: string) => {
+    await setTodos([]);
+
     setTodos(todos.filter((x) => x?.id !== id));
   };
 
